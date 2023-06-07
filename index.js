@@ -5,7 +5,7 @@ const fs = require("fs");
 const target = "8.8.8.8";
 
 // The number of pings to send for each run of MTR
-const cycles = 1;
+const cycles = 20;
 
 // The name of the file to write the output to
 const outputFile = "mtr_report.txt";
