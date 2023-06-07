@@ -40,7 +40,7 @@ function runMtr() {
           console.log("🚨🚨🚨 Packet loss detected! 🚨🚨🚨");
         });
       } else {
-        console.log(".");
+        process.stdout.write(".")
       }
 
       // Start the next run of MTR
