@@ -12,12 +12,11 @@ const outputFile = "mtr_report.txt";
 
 const logContainsPacketLoss = (logContents) => {
   // Parse the output and check for packet loss
-  const lines = stdout.split("\n");
+  const lines = logContents.split("\n");
   for (let line of lines) {
     const fields = line.split(/\s+/);
     const host = fields[2];
     const loss = parseFloat(fields[3]);
-    console.log(host, loss);
     if (host !== "???" && loss > 10) {
       return true;
     }
@@ -37,10 +36,11 @@ function runMtr() {
         // Append the output to the file
         fs.appendFile(outputFile, stdout, (err) => {
           if (err) throw err;
-          console.log("MTR output saved!");
+          process.stdout.write("\x07");
+          console.log("🚨🚨🚨 Packet loss detected! 🚨🚨🚨");
         });
       } else {
-        console.log(".")
+        console.log(".");
       }
 
       // Start the next run of MTR
