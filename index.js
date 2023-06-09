@@ -1,14 +1,12 @@
 const { exec } = require("child_process");
 const fs = require("fs");
+const path = require("path");
 
-// The IP address to ping
+// Google's DNS
 const target = "8.8.8.8";
 
 // The number of pings to send for each run of MTR
 const cycles = 20;
-
-// The name of the file to write the output to
-const outputFile = "mtr_report.txt";
 
 const logContainsPacketLoss = (logContents) => {
   // Parse the output and check for packet loss
@@ -24,6 +22,13 @@ const logContainsPacketLoss = (logContents) => {
 };
 
 function runMtr() {
+  // Get today's date and format it as YYYY-MM-DD
+  const date = new Date();
+  const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+  // Create the output file name for today
+  const outputFile = path.join("logs", `${formattedDate}.txt`);
+
   exec(
     `mtr --report --report-cycles ${cycles} ${target}`,
     (error, stdout, stderr) => {
