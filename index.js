@@ -37,7 +37,7 @@ function runMtr() {
         fs.appendFile(outputFile, stdout, (err) => {
           if (err) throw err;
           process.stdout.write("\x07");
-          console.log("🚨🚨🚨 Packet loss detected! 🚨🚨🚨");
+          process.stdout.write("🚨")
         });
       } else {
         process.stdout.write(".")
